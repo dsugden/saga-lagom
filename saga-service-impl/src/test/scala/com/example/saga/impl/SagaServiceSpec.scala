@@ -16,7 +16,7 @@ class SagaServiceSpec extends AsyncWordSpec with Matchers with BeforeAndAfterAll
     ServiceTest.defaultSetup
       .withCassandra(true)
   ) { ctx =>
-    new SagaApplication(ctx) with LocalServiceLocator with TestTopicComponents
+    new SagaApplicationBase(ctx) with LocalServiceLocator with TestTopicComponents
   }
 
   val client = server.serviceClient.implement[SagaService]

@@ -3,6 +3,7 @@ package com.example.saga.impl
 import com.example.saga.api.SagaService
 import com.lightbend.lagom.scaladsl.api.ServiceLocator
 import com.lightbend.lagom.scaladsl.api.ServiceLocator.NoServiceLocator
+import com.lightbend.lagom.scaladsl.broker.kafka.LagomKafkaComponents
 import com.lightbend.lagom.scaladsl.persistence.cassandra.CassandraPersistenceComponents
 import com.lightbend.lagom.scaladsl.server._
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
@@ -25,6 +26,10 @@ class SagaLoader extends LagomApplicationLoader {
 }
 
 abstract class SagaApplication(context: LagomApplicationContext)
+  extends SagaApplicationBase(context)
+    with LagomKafkaComponents
+
+abstract class SagaApplicationBase(context: LagomApplicationContext)
   extends LagomApplication(context)
     with CassandraPersistenceComponents
     with AhcWSComponents {
@@ -43,3 +48,4 @@ abstract class SagaApplication(context: LagomApplicationContext)
   // Register the saga-lagom persistent entity
   persistentEntityRegistry.register(wire[SagaEntity])
 }
+

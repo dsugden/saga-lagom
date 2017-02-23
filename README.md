@@ -21,6 +21,17 @@ Saga Service communicates with these services via a Message Broker (Kafka). The 
   
   
   
+To run:
+
+    sbt runAll
+    
+    
+Then POST http://localhost:9000/api/saga
+
+    {"id": "21"}
+  
+  
+  
   
   
 
