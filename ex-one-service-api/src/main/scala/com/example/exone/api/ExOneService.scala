@@ -2,6 +2,8 @@ package com.example.exone.api
 
 import com.lightbend.lagom.scaladsl.api.Service
 import com.lightbend.lagom.scaladsl.api.broker.Topic
+import com.lightbend.lagom.scaladsl.persistence.{AggregateEvent, AggregateEventTag, AggregateEventTagger}
+import play.api.libs.json.{Format, Json}
 
 object ExOneService {
 
@@ -23,6 +25,11 @@ trait ExOneService extends Service {
 
 }
 
-case class ExOneRequest(id:String)
-
-case class ExOneEvent(id:String, value:String)
+case class ExOneEvent(id:String, value:String) extends AggregateEvent[ExOneEvent]{
+  override def aggregateTag: AggregateEventTagger[ExOneEvent] = ExOneEvent.Tag
+}
+object ExOneEvent{
+  val NumShards = 4
+  val Tag = AggregateEventTag.sharded[ExOneEvent](4)
+  implicit val format: Format[ExOneEvent] = Json.format[ExOneEvent]
+}

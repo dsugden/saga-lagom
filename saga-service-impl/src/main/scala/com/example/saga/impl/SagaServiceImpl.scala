@@ -1,14 +1,11 @@
 package com.example.saga.impl
 
-import java.util.UUID
-
 import com.example.saga.api.{SagaExOneEvent, SagaResponse, SagaService}
 import com.lightbend.lagom.scaladsl.api.ServiceCall
 import com.lightbend.lagom.scaladsl.api.broker.Topic
 import com.lightbend.lagom.scaladsl.broker.TopicProducer
 import com.lightbend.lagom.scaladsl.persistence.PersistentEntityRegistry
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.collection.immutable
 import scala.concurrent.ExecutionContext.Implicits.global

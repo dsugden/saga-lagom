@@ -8,7 +8,7 @@ val macwire = "com.softwaremill.macwire" %% "macros" % "2.2.5" % "provided"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.0.1" % Test
 
 lazy val `saga-lagom` = (project in file("."))
-  .aggregate(`saga-service-api`, `saga-service-impl`)
+  .aggregate(`saga-service-api`, `saga-service-impl`,`ex-one-service-api`,`ex-one-service-impl`)
 
 lazy val `saga-service-api` = (project in file("saga-service-api"))
   .settings(
@@ -45,8 +45,10 @@ lazy val `ex-one-service-impl` = (project in file("ex-one-service-impl"))
   .enablePlugins(LagomScala)
   .settings(
     libraryDependencies ++= Seq(
+      lagomScaladslPersistenceCassandra,
       lagomScaladslKafkaBroker,
       lagomScaladslTestKit,
+      lagomLogback,
       macwire,
       scalaTest
     )
