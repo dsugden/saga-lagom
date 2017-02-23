@@ -15,11 +15,15 @@ trait SagaService extends Service {
 
   def sageExOneEvents(): Topic[SagaExOneEvent]
 
+  /**
+    * Example: curl http://localhost:9000/api/saga/21
+    */
+
   def getResult(id: String): ServiceCall[NotUsed, SagaResponse]
 
   /**
     * Example: curl -H "Content-Type: application/json" -X POST -d '{"id":
-    * "Hi"}' http://localhost:9000/api/hello/Alice
+    * "Hi"}' http://localhost:9000/api/saga
     */
   def begin: ServiceCall[SagaRequest, String]
 
@@ -38,32 +42,17 @@ trait SagaService extends Service {
 
 case class SagaRequest(id: String)
 object SagaRequest {
-  /**
-    * Format for converting greeting messages to and from JSON.
-    *
-    * This will be picked up by a Lagom implicit conversion from Play's JSON format to Lagom's message serializer.
-    */
   implicit val format: Format[SagaRequest] = Json.format[SagaRequest]
 }
 
 
 case class SagaResponse(id: String, value:String)
 object SagaResponse {
-  /**
-    * Format for converting greeting messages to and from JSON.
-    *
-    * This will be picked up by a Lagom implicit conversion from Play's JSON format to Lagom's message serializer.
-    */
   implicit val format: Format[SagaResponse] = Json.format[SagaResponse]
 }
 
 
 case class SagaExOneEvent(id: String)
 object SagaExOneEvent {
-  /**
-    * Format for converting greeting messages to and from JSON.
-    *
-    * This will be picked up by a Lagom implicit conversion from Play's JSON format to Lagom's message serializer.
-    */
   implicit val format: Format[SagaExOneEvent] = Json.format[SagaExOneEvent]
 }
