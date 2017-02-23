@@ -21,11 +21,36 @@ lazy val `saga-service-impl` = (project in file("saga-service-impl"))
   .enablePlugins(LagomScala)
   .settings(
     libraryDependencies ++= Seq(
+      lagomScaladslKafkaBroker,
       lagomScaladslPersistenceCassandra,
       lagomScaladslTestKit,
+      lagomLogback,
       macwire,
       scalaTest
     )
   )
   .settings(lagomForkedTestSettings: _*)
   .dependsOn(`saga-service-api`)
+
+
+lazy val `ex-one-service-api` = (project in file("ex-one-service-api"))
+  .settings(
+    libraryDependencies ++= Seq(
+      lagomScaladslKafkaBroker,
+      lagomScaladslApi
+    )
+  )
+
+lazy val `ex-one-service-impl` = (project in file("ex-one-service-impl"))
+  .enablePlugins(LagomScala)
+  .settings(
+    libraryDependencies ++= Seq(
+      lagomScaladslKafkaBroker,
+      lagomScaladslTestKit,
+      macwire,
+      scalaTest
+    )
+  )
+  .settings(lagomForkedTestSettings: _*)
+  .dependsOn(`ex-one-service-api`, `saga-service-api`)
+
